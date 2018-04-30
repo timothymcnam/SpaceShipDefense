@@ -239,7 +239,7 @@ class FinalProject extends JFrame implements GLEventListener, KeyListener, Mouse
                 break;
             case KeyEvent.VK_SPACE:
                 if(game_mode == 0){
-                    Projectile b = new Projectile(player_rotate, circle_rad-0.25f, -1*bulletSpeed);
+                    Projectile b = new Projectile(player_rotate, circle_rad-0.35f, -1*bulletSpeed);
                     bullets.add(b);
                 }
                 else if(game_mode == 2){
@@ -284,6 +284,7 @@ class FinalProject extends JFrame implements GLEventListener, KeyListener, Mouse
     private objModel ufo = new objModel("UFO.obj");
     private objModel beam = new objModel("beam.obj");
     private objModel ufoBullet = new objModel("ufoBullet.obj");
+    private objModel ring = new objModel("ring.obj");
     
     private float circle_rad = 2.65f;
     private float enemy_rad = .1f;
@@ -291,6 +292,7 @@ class FinalProject extends JFrame implements GLEventListener, KeyListener, Mouse
     private float bulletSpeed = .1f;
     
     private float example_rotateT = 0.f;
+    private float example_rotateZ = 0.f;
     private float player_rotate = 0.f;
     
     private float def_fly_in = 0.5f;
@@ -469,6 +471,17 @@ class FinalProject extends JFrame implements GLEventListener, KeyListener, Mouse
 
         /* === YOUR WORK HERE === */ 
         
+        gl.glRotatef(example_rotateZ, 0f, 1f, 0f);
+        
+        //Color Ring
+        gl.glMaterialfv(gl.GL_FRONT, gl.GL_AMBIENT, mat_ambient_orange,0);
+        gl.glMaterialfv(gl.GL_FRONT, gl.GL_DIFFUSE, mat_diffuse_low,0);
+        gl.glMaterialfv(gl.GL_FRONT, gl.GL_SPECULAR, mat_specular_high2,0);
+        gl.glMaterialfv(gl.GL_FRONT, gl.GL_SHININESS, mat_shininess2,0);
+        gl.glMaterialfv(gl.GL_FRONT, gl.GL_EMISSION, mat_emission,0);
+             
+        ring.Draw();
+        
         if(game_mode == 0 || game_mode == 1){
             
             renderer.beginRendering(drawable.getSurfaceWidth(), drawable.getSurfaceHeight());
@@ -507,13 +520,13 @@ class FinalProject extends JFrame implements GLEventListener, KeyListener, Mouse
              gl.glRotatef(player_rotate, 0, 0, 1f);
              gl.glTranslatef(circle_rad,0,0);
              //Draw rocket
-                gl.glRotatef(-115f, 0, 1, 0);
+                gl.glRotatef(-90f, 0, 1, 0);
                     gl.glRotatef(6*example_rotateT, 0, 0, 1);
                     gl.glScalef(.5f,.5f,.5f);
                     rocket.Draw();
                     gl.glScalef(2f,2f,2f);
                     gl.glRotatef(-6*example_rotateT, 0, 0, 1);
-                gl.glRotatef(115f, 0, 1, 0);
+                gl.glRotatef(90f, 0, 1, 0);
              //End Draw Rocket
              gl.glTranslatef(-1*circle_rad,0,0);
              gl.glRotatef(-1*player_rotate, 0, 0, 1f);
@@ -705,13 +718,13 @@ class FinalProject extends JFrame implements GLEventListener, KeyListener, Mouse
              gl.glRotatef(player_rotate, 0, 0, 1f);
              gl.glTranslatef(circle_rad + fly_in,0,0);
              //Draw rocket
-                gl.glRotatef(-115f, 0, 1, 0);
+                gl.glRotatef(-90f, 0, 1, 0);
                     gl.glRotatef(6*example_rotateT, 0, 0, 1);
                     gl.glScalef(.5f,.5f,.5f);
                     rocket.Draw();
                     gl.glScalef(2f,2f,2f);
                     gl.glRotatef(-6*example_rotateT, 0, 0, 1);
-                gl.glRotatef(115f, 0, 1, 0);
+                gl.glRotatef(90f, 0, 1, 0);
              //End Draw Rocket
              gl.glTranslatef(-1*(circle_rad + fly_in),0,0);
              gl.glRotatef(-1*player_rotate, 0, 0, 1f);
@@ -740,6 +753,7 @@ class FinalProject extends JFrame implements GLEventListener, KeyListener, Mouse
         /* increment example_rotateT */
         if (animator.isAnimating()) {
             example_rotateT += 1.0f * animation_speed;     
+            example_rotateZ += 1.0f * animation_speed;
 //            jump = ((float)Math.sin(example_rotateT/10)+1)/2;
         }
     }
