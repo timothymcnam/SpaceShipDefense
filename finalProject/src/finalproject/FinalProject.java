@@ -33,6 +33,7 @@ class FinalProject extends JFrame implements GLEventListener, KeyListener, Mouse
     int score = 0;
     int level = 1;
     int lives = 3;
+    boolean threeDim = true;
     
     int game_mode = 2; //0 play, 1 damaged, 2 over, 3 reset
 
@@ -481,6 +482,8 @@ class FinalProject extends JFrame implements GLEventListener, KeyListener, Mouse
         gl.glMaterialfv(gl.GL_FRONT, gl.GL_EMISSION, mat_emission,0);
              
         ring.Draw();
+        
+        if(!threeDim) gl.glRotatef(-1*example_rotateZ, 0f, 1f, 0f);
         
         if(game_mode == 0 || game_mode == 1){
             
